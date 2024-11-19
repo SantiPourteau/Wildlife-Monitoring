@@ -80,3 +80,20 @@ for animal in ['Cow', 'Deer', 'Horse']:
             os.rename(old_path, new_path)  
         
         counter += 1
+
+#in the subfolders divide the images and annotations into images and labels folders
+
+for animal in ['Cow', 'Deer', 'Horse']:
+    source_path = f'../data/data_renamed/{animal}'
+
+    for folder in os.listdir(source_path):
+        if os.path.isdir(source_path + '/' + folder):
+            if not os.path.exists(source_path + '/' + folder + '/images'):
+                os.makedirs(source_path + '/' + folder + '/images')
+            if not os.path.exists(source_path + '/' + folder + '/labels'):
+                os.makedirs(source_path + '/' + folder + '/labels')
+            for file in os.listdir(source_path + '/' + folder):
+                if file.endswith('.jpg'):
+                    shutil.move(source_path + '/' + folder + '/' + file, source_path + '/' + folder + '/images/' + file)
+                elif file.endswith('.txt'):
+                    shutil.move(source_path + '/' + folder + '/' + file, source_path + '/' + folder + '/labels/' + file)
