@@ -1,0 +1,8 @@
+names:
+- Cow
+- Deer
+- Horse
+nc: 3
+test: D:\santi\Facultad\3er Ano\2do Semestre\Repositorios\Wildlife-Monitoring\Desarrollo\data\test_data
+train: D:\santi\Facultad\3er Ano\2do Semestre\Repositorios\Wildlife-Monitoring\Desarrollo\data\train_data
+val: D:\santi\Facultad\3er Ano\2do Semestre\Repositorios\Wildlife-Monitoring\Desarrollo\data\val_data

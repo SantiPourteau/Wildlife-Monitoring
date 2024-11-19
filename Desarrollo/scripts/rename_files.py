@@ -40,13 +40,13 @@ for folder in os.listdir(path):
                 shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)-1) + '_RGB.jpg')
             elif file.endswith('R.txt'):
                 number = file.split('_')[-2].split('.')[0]
-                shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)) + '_Thermal_Annotation.txt')
+                shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)) + '_Thermal.txt')
             elif file.endswith('.txt'):
                 number = file.split('_')[-1].split('.')[0]
                 if number == 'R':
                     number = file.split('_')[-2].split('.')[0]
 
-                shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)-1) + '_RGB_Annotation.txt')
+                shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)-1) + '_RGB.txt')
 
 for animal in ['Cow', 'Deer', 'Horse']:
     source_path = f'../data/data_renamed/{animal}'
