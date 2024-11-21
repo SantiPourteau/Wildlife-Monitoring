@@ -1,6 +1,0 @@
-#create yaml
-nc : 3
-names : ['Cow', 'Deer', 'Horse']
-train : /Users/Colegio/Documents/3er Año/2do Semestre/Repositorios/Wildlife-Monitoring/Desarrollo/data/dataset_rgb/train_data/images
-val : /Users/Colegio/Documents/3er Año/2do Semestre/Repositorios/Wildlife-Monitoring/Desarrollo/data/dataset_rgb/val_data/images
-test : /Users/Colegio/Documents/3er Año/2do Semestre/Repositorios/Wildlife-Monitoring/Desarrollo/data/dataset_rgb/test_data/images
