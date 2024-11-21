@@ -10,9 +10,9 @@ import shutil
 import re
 from collections import defaultdict
 
-path = '../data/raw_data/'
+path = '../../data/raw_data/'
 
-renamed_path = '../data/data_renamed/'
+renamed_path = '../../data/data_renamed/'
 
 if not os.path.exists(renamed_path):
     os.makedirs(renamed_path)

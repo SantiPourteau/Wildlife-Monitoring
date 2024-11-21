@@ -1,12 +1,12 @@
-#Folder is called dataset_rgb which has two subfolders images and labels, the images and annotations are stored in the respective subfolders.
+#Folder is called dataset_hst which has two subfolders images and labels, the images and annotations are stored in the respective subfolders.
 #The images and annotations have the same name apart from the extension.
 #separate the images into train, validation and test datasets and then assign the annotations to the categories.
 
 import os
-path = '../data/dataset_rgb/images'
-train_path = '../data/dataset_rgb/train_data/'
-val_path = '../data/dataset_rgb/val_data/'
-test_path = '../data/dataset_rgb/test_data/'
+path = '../../data/dataset_hst/images'
+train_path = '../../data/dataset_hst/train_data/'
+val_path = '../../data/dataset_hst/val_data/'
+test_path = '../../data/dataset_hst/test_data/'
 
 if not os.path.exists(train_path):
     os.makedirs(train_path)
@@ -51,10 +51,10 @@ test = images[int(len(images)*0.9):]
 for image in images:
     if image in train:
         shutil.copyfile(path + '/' + image, train_path + 'images/' + image)
-        shutil.copyfile('../data/dataset_rgb/labels/' + image.split('.')[0] + '.txt', train_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data/dataset_hst/labels/' + image.split('.')[0] + '.txt', train_path + 'labels/' + image.split('.')[0] + '.txt')
     elif image in val:
         shutil.copyfile(path + '/' + image, val_path + 'images/' + image)
-        shutil.copyfile('../data/dataset_rgb/labels/' + image.split('.')[0] + '.txt', val_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data/dataset_hst/labels/' + image.split('.')[0] + '.txt', val_path + 'labels/' + image.split('.')[0] + '.txt')
     elif image in test:
         shutil.copyfile(path + '/' + image, test_path + 'images/' + image)
-        shutil.copyfile('../data/dataset_rgb/labels/' + image.split('.')[0] + '.txt', test_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data/dataset_hst/labels/' + image.split('.')[0] + '.txt', test_path + 'labels/' + image.split('.')[0] + '.txt')

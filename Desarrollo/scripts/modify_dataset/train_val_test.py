@@ -8,12 +8,12 @@ import shutil
 import random
 
 # Path to the raw dataset
-path = '../data/data_renamed/'
+path = '../../data/data_renamed/'
 
 # Path to the new dataset
-train_path = '../data/train_data/'
-val_path = '../data/val_data/'
-test_path = '../data/test_data/'
+train_path = '../../data/train_data/'
+val_path = '../../data/val_data/'
+test_path = '../../data/test_data/'
 
 # Create the new dataset folders
 if not os.path.exists(train_path):

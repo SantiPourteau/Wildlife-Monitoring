@@ -1,3 +1,5 @@
+#Train YOLOV11 with HST Images.
+
 from ultralytics import YOLO
 import torch
 from torchinfo import summary
@@ -16,9 +18,9 @@ if __name__ == "__main__":
 
     # Entrenar el modelo con los parámetros especificados
     model.train(
-    data="data.yaml",  
+    data="data_hst.yaml",  
     batch=16,  
-    imgsz=640,  
+    imgsz=1024,  
     device=device,  
     epochs = 100)
 
