@@ -3,6 +3,7 @@
 import os
 import cv2
 import numpy as np
+import torch 
 
 path = '../../data/data_renamed/'
 
@@ -19,10 +20,11 @@ for animal in os.listdir(path):
                             
                             combined = cv2.merge((rgb, thermal))
                             # write in a new folder called dataset_4channels
-                            if not os.path.exists('../data/dataset_4channels/images'):
-                                os.makedirs('../data/dataset_4channels/images')
+                            if not os.path.exists('../../data/dataset_4channels/images'):
+                                os.makedirs('../../data/dataset_4channels/images')
                             file = file.replace('RGB', '4channels')
-                            cv2.imwrite('../data/dataset_4channels/images/' + file, combined)
+                            transform = torch.from_numpy(combined)
+                            torch.save(transform, '../../data/dataset_4channels/images/' + file + '.pt')
 
                 elif subfolder == 'labels':
                     for file in os.listdir(path + animal + '/' + scene + '/' + subfolder):
@@ -30,10 +32,10 @@ for animal in os.listdir(path):
                             with open(path + animal + '/' + scene + '/' + subfolder + '/' + file, 'r') as f:
                                 lines = f.readlines()
                             #create file if exists
-                            if not os.path.exists('../data/dataset_4channels/labels'):
-                                os.makedirs('../data/dataset_4channels/labels')
+                            if not os.path.exists('../../data/dataset_4channels/labels'):
+                                os.makedirs('../../data/dataset_4channels/labels')
                             file = file.replace('RGB', '4channels')
-                            with open('../data/dataset_4channels/labels/' + file, 'w') as f:
+                            with open('../../data/dataset_4channels/labels/' + file, 'w') as f:
                                 for line in lines:
                                     f.write(line)
                         else:
