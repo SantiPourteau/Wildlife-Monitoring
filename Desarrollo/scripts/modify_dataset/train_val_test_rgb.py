@@ -3,6 +3,10 @@
 #separate the images into train, validation and test datasets and then assign the annotations to the categories.
 
 import os
+import random
+import shutil
+
+seed = 0
 path = '../../data/dataset_rgb/images'
 train_path = '../../data/dataset_rgb/train_data/'
 val_path = '../../data/dataset_rgb/val_data/'

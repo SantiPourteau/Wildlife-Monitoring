@@ -3,6 +3,10 @@
 #separate the images into train, validation and test datasets and then assign the annotations to the categories.
 
 import os
+import random
+import shutil
+
+seed = 0
 path = '../../data/dataset_4channels/images'
 train_path = '../../data/dataset_4channels/train_data/'
 val_path = '../../data/dataset_4channels/val_data/'
@@ -36,12 +40,11 @@ if not os.path.exists(test_path + 'labels/'):
 # then assign each image to the respective folder called train_data, val_data and test_data
 # then assign the annotations to the folder that contains the image with the same name
 
-import shutil
+
 
 #shuffle the images and 75% of the images are in the train dataset, 15% in the validation dataset and 10% in the test dataset
 
 images = os.listdir(path)
-import random
 random.shuffle(images)
 train = images[:int(len(images)*0.75)]
 val = images[int(len(images)*0.75):int(len(images)*0.9)]

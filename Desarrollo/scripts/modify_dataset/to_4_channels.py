@@ -7,6 +7,10 @@ import torch
 
 path = '../../data/data_renamed/'
 
+#create folder if not exists
+if not os.path.exists('../../data/dataset_4channels'):
+    os.makedirs('../../data/dataset_4channels')
+    
 for animal in os.listdir(path):
     if os.path.isdir(path + animal):
         for scene in os.listdir(path + animal):
