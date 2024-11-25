@@ -7,6 +7,7 @@ import os
 import shutil
 import random
 
+seed = 0
 # Path to the raw dataset
 path = '../../data/data_renamed/'
 
