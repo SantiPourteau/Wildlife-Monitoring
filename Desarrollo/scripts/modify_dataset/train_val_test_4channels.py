@@ -7,10 +7,10 @@ import random
 import shutil
 
 seed = 0
-path = '../../data/dataset_4channels/images'
-train_path = '../../data/dataset_4channels/train_data/'
-val_path = '../../data/dataset_4channels/val_data/'
-test_path = '../../data/dataset_4channels/test_data/'
+path = '../../data_yolo/dataset_4channels/images'
+train_path = '../../data_yolo/dataset_4channels/train_data/'
+val_path = '../../data_yolo/dataset_4channels/val_data/'
+test_path = '../../data_yolo/dataset_4channels/test_data/'
 
 if not os.path.exists(train_path):
     os.makedirs(train_path)
@@ -54,10 +54,10 @@ test = images[int(len(images)*0.9):]
 for image in images:
     if image in train:
         shutil.copyfile(path + '/' + image, train_path + 'images/' + image)
-        shutil.copyfile('../../data/dataset_4channels/labels/' + image.split('.')[0] + '.txt', train_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data_yolo/dataset_4channels/labels/' + image.split('.')[0] + '.txt', train_path + 'labels/' + image.split('.')[0] + '.txt')
     elif image in val:
         shutil.copyfile(path + '/' + image, val_path + 'images/' + image)
-        shutil.copyfile('../../data/dataset_4channels/labels/' + image.split('.')[0] + '.txt', val_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data_yolo/dataset_4channels/labels/' + image.split('.')[0] + '.txt', val_path + 'labels/' + image.split('.')[0] + '.txt')
     elif image in test:
         shutil.copyfile(path + '/' + image, test_path + 'images/' + image)
-        shutil.copyfile('../../data/dataset_4channels/labels/' + image.split('.')[0] + '.txt', test_path + 'labels/' + image.split('.')[0] + '.txt')
+        shutil.copyfile('../../data_yolo/dataset_4channels/labels/' + image.split('.')[0] + '.txt', test_path + 'labels/' + image.split('.')[0] + '.txt')

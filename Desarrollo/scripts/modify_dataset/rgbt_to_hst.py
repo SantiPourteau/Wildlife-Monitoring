@@ -5,11 +5,11 @@ import cv2
 import numpy as np
 import torch
 
-path = '../../data/data_renamed/'
+path = '../../data_yolo/data_renamed/'
 
 #create folder if not exists
-if not os.path.exists('../../data/dataset_hst'):
-    os.makedirs('../../data/dataset_hst')
+if not os.path.exists('../../data_yolo/dataset_hst'):
+    os.makedirs('../../data_yolo/dataset_hst')
 
 
 for animal in os.listdir(path):
@@ -27,10 +27,10 @@ for animal in os.listdir(path):
                             hst = np.dstack((hs, thermal))
                             hst_rgb = cv2.cvtColor(hst, cv2.COLOR_HSV2RGB)
                             # write in a new folder called dataset_hst
-                            if not os.path.exists('../../data/dataset_hst/images'):
-                                os.makedirs('../../data/dataset_hst/images')
+                            if not os.path.exists('../../data_yolo/dataset_hst/images'):
+                                os.makedirs('../../data_yolo/dataset_hst/images')
                             file = file.replace('RGB', 'HST_RGB')
-                            cv2.imwrite('../../data/dataset_hst/images/' + file, hst_rgb)
+                            cv2.imwrite('../../data_yolo/dataset_hst/images/' + file, hst_rgb)
                             
 
                 elif subfolder == 'labels':
@@ -39,10 +39,10 @@ for animal in os.listdir(path):
                             with open(path + animal + '/' + scene + '/' + subfolder + '/' + file, 'r') as f:
                                 lines = f.readlines()
                             #create file if exists
-                            if not os.path.exists('../../data/dataset_hst/labels'):
-                                os.makedirs('../../data/dataset_hst/labels')
+                            if not os.path.exists('../../data_yolo/dataset_hst/labels'):
+                                os.makedirs('../../data_yolo/dataset_hst/labels')
                             file = file.replace('RGB', 'HST_RGB')
-                            with open('../../data/dataset_hst/labels/' + file, 'w') as f:
+                            with open('../../data_yolo/dataset_hst/labels/' + file, 'w') as f:
                                 for line in lines:
                                     f.write(line)
                         else:

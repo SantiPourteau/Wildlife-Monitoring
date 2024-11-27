@@ -10,9 +10,9 @@ import shutil
 import re
 from collections import defaultdict
 
-path = '../../data/raw_data/'
+path = '../../data_yolo/raw_data/'
 
-rgb_path = '../../data/dataset_rgb/'
+rgb_path = '../../data_yolo/dataset_rgb/'
 
 if not os.path.exists(rgb_path):
     os.makedirs(rgb_path)

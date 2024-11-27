@@ -46,42 +46,7 @@ class ObjectDetectionDataset(Dataset):
 
     def __len__(self):
         return len(self.files["images"])
-
-    def validate_and_correct_boxes(self, boxes):
-        """
-        Valida que los cuadros delimitadores tengan dimensiones positivas.
-        Corrige el orden de las coordenadas si es necesario.
-        """
-        valid_boxes = []
-        for box in boxes:
-            x_min, y_min, x_max, y_max = box
-            # Asegurar que las coordenadas estén en el orden correcto
-            x_min, x_max = min(x_min, x_max), max(x_min, x_max)
-            y_min, y_max = min(y_min, y_max), max(y_min, y_max)
-
-            # Filtrar cuadros con dimensiones no válidas
-            if (x_max - x_min) > 0 and (y_max - y_min) > 0:
-                print('rotoooo\n')
-                valid_boxes.append([x_min, y_min, x_max, y_max])
-
-        return torch.tensor(valid_boxes, dtype=torch.float32)
     
-    def generate_masks_from_boxes(self, image_shape, boxes):
-        """
-        Genera máscaras binarias a partir de bounding boxes.
-        - image_shape: tupla con el tamaño (alto, ancho) de la imagen.
-        - boxes: lista de cuadros delimitadores (x_min, y_min, x_max, y_max).
-        """
-        masks = []
-        for box in boxes:
-            x_min, y_min, x_max, y_max = map(int, box)
-            mask = np.zeros(image_shape[:2], dtype=np.uint8)
-            mask[y_min:y_max, x_min:x_max] = 1  # Rellena la región del bounding box
-            masks.append(mask)
-        return torch.tensor(masks, dtype=torch.uint8)
-    
-
-
     def __getitem__(self, index):
         # Leer la imagen y las etiquetas como antes
         image_path = self.files["images"][index]
@@ -104,17 +69,13 @@ class ObjectDetectionDataset(Dataset):
             classes.append(int(cls))
 
         # Validar y corregir cuadros delimitadores
-        # boxes = self.validate_and_correct_boxes(boxes)
         boxes = torch.tensor(boxes, dtype=torch.float32)
 
-        # Generar máscaras sintéticas
-        masks = self.generate_masks_from_boxes(image.shape[1:], boxes)
 
         # Crear el diccionario de etiquetas
         target = {
             "boxes": boxes,
             "labels": torch.tensor(classes, dtype=torch.int64),
-            "masks": masks,
         }
 
         return image, target

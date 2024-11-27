@@ -2,6 +2,7 @@ import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision.models.detection import maskrcnn_resnet50_fpn
+from torchvision.models.detection.mask_rcnn import MaskRCNN_ResNet50_FPN_Weights
 from dataset_loader.dataset import DatasetConfig, ObjectDetectionDataset  # Asegúrate de que estén en el mismo directorio o en el PATH
 from torchvision.ops import box_iou
 
@@ -10,9 +11,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Configuración del Dataset
 dataset_config = DatasetConfig(
-    img_width=640, 
-    img_height=480,
-    dataset_path="../../data/dataset_hst",  # Cambia esta ruta por la de tu dataset
+    img_width=1792, 
+    img_height=1434,
+    dataset_path="../../data_maskrcnn/dataset_hst",  # Cambia esta ruta por la de tu dataset
     splits=["train_data", "val_data"]
 )
 
@@ -35,9 +36,24 @@ val_loader = DataLoader(
     collate_fn=lambda x: tuple(zip(*x))
 )
 
-# Cargar modelo Mask R-CNN preentrenado o personalizado
-model = maskrcnn_resnet50_fpn(pretrained=False, num_classes=3)  # Cambia el número de clases si es necesario
-model.load_state_dict(torch.load("mask_rcnn_custom.pt"))  # Ruta al modelo personalizado
+# Cargar modelo Mask R-CNN solo para detección de objetos
+weights = MaskRCNN_ResNet50_FPN_Weights.DEFAULT
+model = maskrcnn_resnet50_fpn(weights=weights)
+model.roi_heads.mask_predictor = None  # Remover la cabeza de predicción de máscaras
+
+# Número de clases (incluye la clase fondo)
+num_classes = 3  # 3 clases más la clase fondo
+in_features = model.roi_heads.box_predictor.cls_score.in_features
+from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+
+# Cargar pesos personalizados si corresponde
+try:
+    model.load_state_dict(torch.load("custom_maskrcnn.pt"))
+    print("Pesos personalizados cargados con éxito.")
+except FileNotFoundError:
+    print("No se encontró el archivo de pesos personalizados. Usando pesos preentrenados.")
+
 model.to(device)
 
 # Optimizador y Scheduler
@@ -90,8 +106,6 @@ for epoch in range(num_epochs):
         optimizer.step()
         print(f"Loss: {losses.item()}")
 
-
-
     # Actualización del scheduler
     lr_scheduler.step()
 
@@ -104,5 +118,5 @@ for epoch in range(num_epochs):
     print(f"Validation mAP: {metrics['mAP']:.4f}")
 
 # Guardar el modelo reentrenado
-torch.save(model.state_dict(), "mask_rcnn_custom_retrained.pt")
-print("Modelo guardado en 'mask_rcnn_custom_retrained.pt'")
+torch.save(model.state_dict(), "retrained_maskrcnn.pt")
+print("Modelo guardado en 'retrained_maskrcnn.pt'")

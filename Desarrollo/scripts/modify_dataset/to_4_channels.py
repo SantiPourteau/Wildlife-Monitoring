@@ -5,11 +5,11 @@ import cv2
 import numpy as np
 import torch 
 
-path = '../../data/data_renamed/'
+path = '../../data_yolo/data_renamed/'
 
 #create folder if not exists
-if not os.path.exists('../../data/dataset_4channels'):
-    os.makedirs('../../data/dataset_4channels')
+if not os.path.exists('../../data_yolo/dataset_4channels'):
+    os.makedirs('../../data_yolo/dataset_4channels')
     
 for animal in os.listdir(path):
     if os.path.isdir(path + animal):
@@ -24,11 +24,11 @@ for animal in os.listdir(path):
                             
                             combined = cv2.merge((rgb, thermal))
                             # write in a new folder called dataset_4channels
-                            if not os.path.exists('../../data/dataset_4channels/images'):
-                                os.makedirs('../../data/dataset_4channels/images')
+                            if not os.path.exists('../../data_yolo/dataset_4channels/images'):
+                                os.makedirs('../../data_yolo/dataset_4channels/images')
                             file = file.replace('RGB', '4channels')
                             transform = torch.from_numpy(combined)
-                            torch.save(transform, '../../data/dataset_4channels/images/' + file + '.pt')
+                            torch.save(transform, '../../data_yolo/dataset_4channels/images/' + file + '.pt')
 
                 elif subfolder == 'labels':
                     for file in os.listdir(path + animal + '/' + scene + '/' + subfolder):
@@ -36,10 +36,10 @@ for animal in os.listdir(path):
                             with open(path + animal + '/' + scene + '/' + subfolder + '/' + file, 'r') as f:
                                 lines = f.readlines()
                             #create file if exists
-                            if not os.path.exists('../../data/dataset_4channels/labels'):
-                                os.makedirs('../../data/dataset_4channels/labels')
+                            if not os.path.exists('../../data_yolo/dataset_4channels/labels'):
+                                os.makedirs('../../data_yolo/dataset_4channels/labels')
                             file = file.replace('RGB', '4channels')
-                            with open('../../data/dataset_4channels/labels/' + file, 'w') as f:
+                            with open('../../data_yolo/dataset_4channels/labels/' + file, 'w') as f:
                                 for line in lines:
                                     f.write(line)
                         else:

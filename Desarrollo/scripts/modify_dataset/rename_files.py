@@ -10,9 +10,9 @@ import shutil
 import re
 from collections import defaultdict
 
-path = '../../data/raw_data/'
+path = '../../data_yolo/raw_data/'
 
-renamed_path = '../../data/data_renamed/'
+renamed_path = '../../data_yolo/data_renamed/'
 
 if not os.path.exists(renamed_path):
     os.makedirs(renamed_path)
@@ -49,7 +49,7 @@ for folder in os.listdir(path):
                 shutil.copyfile(path + folder + '/' + file, renamed_path + folder + '/' + folder + '_' + str(int(number)-1) + '_RGB.txt')
 
 for animal in ['Cow', 'Deer', 'Horse']:
-    source_path = f'../../data/data_renamed/{animal}'
+    source_path = f'../../data_yolo/data_renamed/{animal}'
 
     if not source_path.endswith(os.path.sep):
         source_path += os.path.sep
@@ -84,7 +84,7 @@ for animal in ['Cow', 'Deer', 'Horse']:
 #in the subfolders divide the images and annotations into images and labels folders
 
 for animal in ['Cow', 'Deer', 'Horse']:
-    source_path = f'../../data/data_renamed/{animal}'
+    source_path = f'../../data_yolo/data_renamed/{animal}'
 
     for folder in os.listdir(source_path):
         if os.path.isdir(source_path + '/' + folder):

@@ -34,23 +34,27 @@ def plot_sample(dataset, index=None):
     ax[0].axis("off")
 
     for box, label in zip(boxes, labels):
-        # Desnormalizar las coordenadas del bounding box
-        x_max, y_max, x_min, y_min = box
-        height, width, _ = image.shape
+        #get image size
+        img_height, img_width, _ = image.shape
+        x_center, y_center, width, height = box
         #desnormalizar
-        # x_min, y_min, x_max, y_max = x_min * width, y_min * height, x_max * width, y_max * height
-        # # Asegurar que las coordenadas estén en el orden correcto
-       
-        print(f'x_min: {x_min}, x_max: {x_max}, y_min: {y_min}, y_max: {y_max}')
 
-        
+        x_center = x_center * img_width
+        y_center = y_center * img_height
+        width = width * img_width
+        height = height * img_height
 
+
+        x_min = x_center - width / 2
+        y_min = y_center - height / 2
+
+        # Crear un rectángulo
         rect = patches.Rectangle(
             (x_min, y_min),
-            x_max - x_min,
-            y_max - y_min,
-            linewidth=2,
-            edgecolor="red",
+            width,
+            height,
+            linewidth=1,
+            edgecolor="r",
             facecolor="none",
         )
         ax[0].add_patch(rect)
@@ -80,7 +84,7 @@ def plot_sample(dataset, index=None):
 config = DatasetConfig(
     img_width=640,
     img_height=480,
-    dataset_path="../../data/dataset_hst",  # Cambiar a la ruta de tu dataset
+    dataset_path="../../data_maskrcnn/dataset_hst",  # Cambiar a la ruta de tu dataset
     splits=["train_data"]
 )
 
@@ -88,4 +92,5 @@ config = DatasetConfig(
 dataset = ObjectDetectionDataset(config, split="train_data")
 
 for _ in range(3):
-    plot_sample(dataset)
+    # plot_sample(dataset)
+    print(dataset.__getitem__(0))
