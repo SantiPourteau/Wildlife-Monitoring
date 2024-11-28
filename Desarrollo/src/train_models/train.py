@@ -8,6 +8,7 @@ from torchvision.ops import box_iou
 
 # Configuración del dispositivo
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Usando {device}")
 
 # Configuración del Dataset
 dataset_config = DatasetConfig(
