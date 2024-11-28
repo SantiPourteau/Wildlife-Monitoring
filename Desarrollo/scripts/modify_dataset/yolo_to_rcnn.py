@@ -20,12 +20,13 @@ for dataset in subfolders:
                             lines = f.readlines()
                         with open(path + dataset + '/' + folder + '/' + file, 'w') as f:
                             for line in lines:
+                                clase = int(line.split()[0]) + 1
                                 x_center, y_center, width, height = map(float, line.split()[1:])
                                 x_min = x_center - width/2
                                 y_min = y_center - height/2
                                 x_max = x_center + width/2
                                 y_max = y_center + height/2
-                                f.write('0 ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
+                                f.write(str(clase) + ' ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
 
 #do the same but accessing the test, val and train folders inside each dataset
 for dataset in subfolders:
