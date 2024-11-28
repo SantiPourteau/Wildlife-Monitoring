@@ -40,12 +40,14 @@ for dataset in subfolders:
                                     lines = f.readlines()
                                 with open(path + dataset + '/' + folder + '/' + subfolder + '/' + file, 'w') as f:
                                     for line in lines:
+                                        #check what number is at the start of the line
+                                        clase = int(line.split()[0]) + 1
                                         x_center, y_center, width, height = map(float, line.split()[1:])
                                         x_min = x_center - width/2
                                         y_min = y_center - height/2
                                         x_max = x_center + width/2
                                         y_max = y_center + height/2
-                                        f.write('0 ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
+                                        f.write(str(clase) + ' ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
 
 
 

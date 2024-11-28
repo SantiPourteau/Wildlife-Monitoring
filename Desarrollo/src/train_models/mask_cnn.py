@@ -8,7 +8,7 @@ weights = MaskRCNN_ResNet50_FPN_Weights.DEFAULT  # Usar los pesos preentrenados
 model = torchvision.models.detection.maskrcnn_resnet50_fpn(weights=weights)
 
 # Número de clases (incluye la clase fondo)
-num_classes = 3  # 3 clases más la clase fondo
+num_classes = 4  # 3 clases más la clase fondo
 
 # Cambiar la capa de clasificación (box_predictor)
 in_features = model.roi_heads.box_predictor.cls_score.in_features

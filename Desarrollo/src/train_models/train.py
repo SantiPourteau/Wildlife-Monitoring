@@ -43,7 +43,7 @@ model = maskrcnn_resnet50_fpn(weights=weights)
 model.roi_heads.mask_predictor = None  # Remover la cabeza de predicción de máscaras
 
 # Número de clases (incluye la clase fondo)
-num_classes = 3  # 3 clases más la clase fondo
+num_classes = 4  # 3 clases más la clase fondo
 in_features = model.roi_heads.box_predictor.cls_score.in_features
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
@@ -70,8 +70,9 @@ def evaluate_model(model, data_loader):
     with torch.no_grad():
         for images, targets in data_loader:
             images = [img.to(device) for img in images]
+            print(len(images))
             outputs = model(images)
-
+            print(outputs)
             for output, target in zip(outputs, targets):
                 pred_boxes = output["boxes"].to(device)
                 pred_labels = output["labels"].to(device)
