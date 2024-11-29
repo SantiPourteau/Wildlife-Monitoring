@@ -22,10 +22,21 @@ for dataset in subfolders:
                             for line in lines:
                                 clase = int(line.split()[0]) + 1
                                 x_center, y_center, width, height = map(float, line.split()[1:])
+                                #desnormalizar
+
+                                
                                 x_min = x_center - width/2
                                 y_min = y_center - height/2
                                 x_max = x_center + width/2
                                 y_max = y_center + height/2
+                                #desnormalizar las coordenadas 1792 1434
+
+                                img_width = 1792
+                                img_height = 1434
+                                x_min = x_min * img_width
+                                y_min = y_min * img_height
+                                x_max = x_max * img_width
+                                y_max = y_max * img_height
                                 f.write(str(clase) + ' ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
 
 #do the same but accessing the test, val and train folders inside each dataset
@@ -48,6 +59,14 @@ for dataset in subfolders:
                                         y_min = y_center - height/2
                                         x_max = x_center + width/2
                                         y_max = y_center + height/2
+                                        #desnormalizar las coordenadas 1792 1434
+
+                                        img_width = 1792
+                                        img_height = 1434
+                                        x_min = x_min * img_width
+                                        y_min = y_min * img_height
+                                        x_max = x_max * img_width
+                                        y_max = y_max * img_height
                                         f.write(str(clase) + ' ' + ' '.join(map(str, [x_min, y_min, x_max, y_max])) + '\n')
 
 
