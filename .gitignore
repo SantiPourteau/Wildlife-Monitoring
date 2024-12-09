@@ -3,3 +3,4 @@
 *.cache
 *.pt
 .DS_Store
+*.png
