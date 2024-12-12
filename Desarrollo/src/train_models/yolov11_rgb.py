@@ -6,7 +6,7 @@ from torchinfo import summary
 
 if __name__ == "__main__":
     # Cargar el modelo YOLOv11n
-    model = YOLO("yolo11n.pt")
+    model = YOLO(r"Desarrollo\src\train_models\yolo11n.pt")
 
     #entrenar sobre gpu
     if torch.cuda.is_available():
@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
     # Entrenar el modelo con los parámetros especificados
     model.train(
-    data="data_rgb.yaml",  
+    data=r"Desarrollo\src\train_models\data_rgb.yaml",  
     batch=16,  
-    imgsz=1024,  
+    imgsz=640,  
     device=device,  
-    epochs = 100)
+    epochs = 75)
 
